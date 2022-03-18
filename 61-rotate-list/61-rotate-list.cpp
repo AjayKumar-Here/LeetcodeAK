@@ -47,7 +47,7 @@ public:
             curr=curr->next;
         }
         
-        k=k%length;
+        k=k % length;
         
         for(int i=0;i<k;i++)
         {
