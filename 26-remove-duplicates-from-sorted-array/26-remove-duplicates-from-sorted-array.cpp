@@ -3,9 +3,7 @@ public:
     int removeDuplicates(vector<int>& nums) 
     {
         int res=1;
-        
         int n=nums.size();
-        
         
         for(int i=1;i<n;i++)
         {
@@ -15,7 +13,6 @@ public:
                 res++;
             }
         }
-        
         return res;
     }
 };
