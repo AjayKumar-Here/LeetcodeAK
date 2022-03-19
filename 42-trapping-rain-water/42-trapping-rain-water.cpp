@@ -30,8 +30,6 @@ public:
             trap+=((min(left[i],right[i])) - height[i]);
         }
         
-        left.clear();
-        right.clear();
         
         
         return trap;
