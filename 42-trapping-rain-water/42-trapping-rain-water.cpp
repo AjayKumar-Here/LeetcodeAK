@@ -2,8 +2,6 @@ class Solution {
 public:
     int trap(vector<int>& height) 
     {
-        
-        
         int n=height.size();
         
         vector<int> left(n);
@@ -29,9 +27,7 @@ public:
         {
             trap+=((min(left[i],right[i])) - height[i]);
         }
-        
-        
-        
+     
         return trap;
     }
 };
