@@ -88,10 +88,12 @@ public:
   		  mp.erase(key);
   		  DeleteNode(node);
             
-          node=new Node(key,value);
+          node->value=value;
+          AddNode(node);
+            
           mp[key]=node;
             
-  		  AddNode(node);
+  		 
 	    }
         //If Not found the key
         else
