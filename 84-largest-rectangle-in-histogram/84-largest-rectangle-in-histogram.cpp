@@ -1,60 +1,39 @@
-class Solution 
-{
+class Solution {
 public:
- int largestRectangleArea(vector<int>& arr) 
- {
-     int n=arr.size();
-    int ps[n];
-	int ns[n];
-	
-	stack <int> s ;
-	int res=0;
+    int largestRectangleArea(vector<int>& arr) 
+    {
+        stack <int> s ;
+	    int res=0;
+	    int tp;
+	    int curr;
+        int n=arr.size();
 	
 	for(int i=0;i<n;i++)
 	{
 		while(s.empty()==false && arr[s.top()] >= arr[i])
 		{
+			tp = s.top();
 			s.pop();
+		
+			curr= arr[tp] * (s.empty() ? i : (i-s.top()-1));
+		
+			res=max(res,curr);
 		}
-		
-		int span=s.empty() ? -1 : s.top();
-		
-		ps[i]=span;
 			
-		s.push(i);
+			s.push(i);
 	}	
 	
-	 while(s.empty()==false)
-	 {
-        s.pop();
-     }
-	
-	for(int i=n-1;i>=0;i--)
-	{
-		while(s.empty()==false && arr[s.top()] >= arr[i])
+		while(s.empty()==false )
 		{
+			tp = s.top();
 			s.pop();
+		
+			curr=arr[tp] * (s.empty() ? n : (n-s.top()-1) ) ;
+		
+			res=max(res,curr);
 		}
-		
-		int span=s.empty() ? n : s.top() ;
-		
-		ns[i]=span;
-		
-		s.push(i);
-	}
-	
 
-	for(int i=0;i<n;i++)
-	{
-		int curr=arr[i];
-		
-		curr+=(i-ps[i]-1) *arr[i];
-		curr+=(ns[i]-i-1) *arr[i];
-		
-		res=max(res,curr);
-		
-	}
 	
 	return res;
-  }
+    }
 };
