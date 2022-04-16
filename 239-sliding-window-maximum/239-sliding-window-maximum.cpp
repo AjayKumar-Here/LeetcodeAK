@@ -15,7 +15,7 @@ public:
            // Now push the index into our queue.
            queue.push_back(left);
            // Okay, now nums[queue.front()] mush be the max number in range (left-k, left] 
-           if (left - k + 1 >= 0) ans.push_back(nums[queue.front()]);
+           if (left >= k-1) ans.push_back(nums[queue.front()]);
        }
        return ans;
     }
