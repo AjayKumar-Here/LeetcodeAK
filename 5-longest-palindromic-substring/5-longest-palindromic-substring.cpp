@@ -19,22 +19,22 @@ public:
     {
         int n=s.length();
         
-        int start=0,len=0;
+        int start=0,mx=INT_MIN,len=0;
         
         for(int i=0;i<n;i++)
         {
             int len1=lenexpandcheck(s,i,i);
             int len2=lenexpandcheck(s,i,i+1);
+            len=max(len1,len2);
             
-            if(len < max(len1,len2))
+            if(len > mx)
             {
-                len = max(len1,len2);
                 start = i-(len-1)/2;
+                mx=len;
             }  
-            
             
         }
         
-        return s.substr(start,len);
+        return s.substr(start,mx);
     }
 };
