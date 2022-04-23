@@ -1,46 +1,40 @@
 class Solution {
 public:
-  string longestPalindrome(string s) 
+    
+    int lenexpandcheck(string s,int left,int right)
     {
-        int n = s.size();
-        if (n == 0) return "";
-
-        // dp[i][j] will be 'true' if the string from index i to j is a palindrome.
-        bool dp[n][n];
-
-        //Initialize with false
-
-        memset(dp, 0, sizeof(dp));
-
-        //Every Single character is palindrome
-        for (int i = 0; i < n; i++)
-            dp[i][i] = true;
-
-        string ans = "";
-        ans += s[0];
-
-        for (int i = n - 1; i >= 0; i--)
+        if(s.length() < 1 || left > right) return 0;
+        
+        while(left >=0 && right < s.length() && s[left]==s[right])
         {
-            for (int j = i + 1; j < n; j++)
-            {
-                if (s[i] == s[j])
-                {
-                    //If it is of two character OR if its susbtring is palindrome.
-                    if (j - i == 1 || dp[i + 1][j - 1])
-                    {
-                        //Then it will also a palindrome substring
-                        dp[i][j] = true;
-
-                        //Check for Longest Palindrome substring
-                        if (ans.size() < j - i + 1)
-                            ans = s.substr(i, j - i + 1);
-                    }
-                }
-            }
+            left--;
+            right++;
         }
-      
-        return ans;
         
         
+        return right-left-1;
+        
+    }
+    string longestPalindrome(string s) 
+    {
+        int n=s.length();
+        
+        int start=0,len=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            int len1=lenexpandcheck(s,i,i);
+            int len2=lenexpandcheck(s,i,i+1);
+            
+            if(len < max(len1,len2))
+            {
+                len = max(len1,len2);
+                start = i-(len-1)/2;
+            }  
+            
+            
+        }
+        
+        return s.substr(start,len);
     }
 };
