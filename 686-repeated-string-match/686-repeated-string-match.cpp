@@ -1,54 +1,24 @@
-#define d 256
-const int q=101;
-
 class Solution 
 {
 public:
-    
-    bool check(string a,string b)
-    {
-        int m=a.size();
-        int n=b.size();
-        
-        for(int i=0;i<=m-n;i++)
-        {
-            int j;
-            for(j=0;j<n;j++)
-            {
-                if(a[i+j]!=b[j])
-                {
-                    break;
-                }
-            }
-            
-            if(j==n) return true;
-        }
-        
-        return false;
-    }
-    
     int repeatedStringMatch(string a, string b) 
     {
-        int count=1;
+        string s="";
         
-        int m=a.size();
-        int n=b.size();
+        int count = 0;
         
-        string s=a;
-    
-        
-        while(a.size() < b.size())
+        while(s.size()<b.size())
         {
-            a+=s;
+            s+=a;
             count++;
         }
         
-        if(check(a,b)) return count;
+        if(s.find(b)!=string::npos) return count;
         
-        a+=s;
+        s+=a;
+        count++;
         
-        if(check(a,b)) return count+1;
-   
+        if(s.find(b)!=string::npos) return count;
         
         return -1;
     }
