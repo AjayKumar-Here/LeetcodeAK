@@ -5,7 +5,7 @@ class Solution
 {
 public:
     
-    bool check(string txt,string pat)
+    bool Rabin_Karp(string txt,string pat)
     {
         int n=txt.length();
 	    int m=pat.length();
@@ -87,11 +87,11 @@ public:
             count++;
         }
         
-        if(check(a,b)) return count;
+        if(Rabin_Karp(a,b)) return count;
         
         a+=s;
         
-        if(check(a,b)) return count+1;
+        if(Rabin_Karp(a,b)) return count+1;
    
         
         return -1;
