@@ -28,6 +28,7 @@ public:
         {
             
             int n=q.size();
+            int sz=n;
             
             vector<int> v(n);
             
@@ -36,9 +37,14 @@ public:
               TreeNode *cur=q.front();
               q.pop();
                 
-              int index = (flag) ? i : (n - 1 - i);
-           
-              v[index]=cur->val;
+              if(flag)
+              {
+                  v[i]=cur->val;
+              }
+              else
+              {
+                  v[sz-1-i]=cur->val;
+              }
             
               if(cur->left!=NULL) q.push(cur->left);
             
