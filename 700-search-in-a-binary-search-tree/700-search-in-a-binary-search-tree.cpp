@@ -21,10 +21,8 @@ public:
             return root;
         }
         
-        TreeNode *l=searchBST(root->left,val);
-        TreeNode *r=searchBST(root->right,val);
+        if(root->val > val ) return searchBST(root->left,val);
+        else return searchBST(root->right,val);
         
-        if(l) return l;
-        else return r;
     }
 };
