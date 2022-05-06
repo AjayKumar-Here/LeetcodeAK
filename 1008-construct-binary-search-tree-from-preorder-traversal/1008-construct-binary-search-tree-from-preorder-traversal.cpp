@@ -13,19 +13,29 @@ class Solution {
 public:
     TreeNode* ConstructTree(int x,TreeNode* root) 
     {
-        if(root==NULL)
+        TreeNode* cur=root,*prev;
+        
+        while(cur!=NULL)
         {
-            return new TreeNode(x);
-            
+            prev=cur;
+            if(cur->val > x)
+            {
+                cur=cur->left;
+            }
+            else if(cur->val < x)
+            {
+                cur=cur->right;
+            } 
         }
         
-        else if(root->val > x)
+        if(prev->val > x)
         {
-            root->left=ConstructTree(x,root->left);
+            prev->left = new TreeNode(x);
+            
         }
-        else if(root->val < x)
+        else
         {
-            root->right=ConstructTree(x,root->right);
+            prev->right = new TreeNode(x);
         }
         
         return root;
