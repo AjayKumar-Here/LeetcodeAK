@@ -3,14 +3,14 @@ public:
     
     bool bfs(vector<int> adj[],vector<int> &color,int src)
     {
-        queue<pair<int,bool>> q;
-        q.push({src,0});
+        queue<int> q;
+        q.push(src);
+        
+        color[src]=true;
         
         while(!q.empty())
         {
-            int u=q.front().first;
-            
-            bool c=q.front().second;
+            int u=q.front();
             
             q.pop();
             
@@ -18,10 +18,10 @@ public:
             {
                 if(color[v]==-1)
                 {
-                     color[v]=!c;
-                     q.push({v,!c});
+                     color[v]=!color[u];
+                     q.push(v);
                 }
-                else if(color[v]==c)
+                else if(color[v]==color[u])
                 {
                     return true;
                 }
