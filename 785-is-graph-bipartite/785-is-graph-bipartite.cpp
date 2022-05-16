@@ -1,31 +1,22 @@
 class Solution {
 public:
     
-    bool bfs(vector<int> adj[],vector<int> &color,int src)
+    bool dfs(vector<int> &visited,vector<int> adj[],vector<int> &color,int u,int ans)
     {
-        queue<int> q;
-        q.push(src);
+        visited[u]=true;
         
-        color[src]=true;
+        color[u]=ans;
         
-        while(!q.empty())
+        for(int v:adj[u])
         {
-            int u=q.front();
-            
-            q.pop();
-            
-            for(int v:adj[u])
+            if(!visited[v])
             {
-                if(color[v]==-1)
-                {
-                     color[v]=!color[u];
-                     q.push(v);
-                }
-                else if(color[v]==color[u])
-                {
-                    return true;
-                }
-                
+               if(dfs(visited,adj,color,v,ans^1)) return true;
+    
+            }
+            else if(color[v]==color[u])
+            {
+                return true;
             }
             
         }
@@ -39,8 +30,6 @@ public:
         
         vector<int> adj[v];
         
-        vector<int> color(v,-1);
-        
         for(int i=0;i<v;i++)
         {
             for(int u:graph[i])
@@ -50,11 +39,14 @@ public:
             }
         }
         
+        vector<int> color(v,-1);
+        vector<int> visited(v,0);
+        
         for(int i=0;i<v;i++)
         {
-            if(color[i]==-1)
+            if(!visited[i])
             {
-                if(bfs(adj,color,i)) return false;
+                if(dfs(visited,adj,color,i,1)) return false;
             }
         }
         
