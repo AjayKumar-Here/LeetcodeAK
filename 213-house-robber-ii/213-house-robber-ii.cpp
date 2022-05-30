@@ -1,11 +1,12 @@
 class Solution {
 public:
-    int houserob(vector<int>& nums)
+    int rob(vector<int>& nums) 
     {
+        if(nums.size()==1) return nums[0];
         int p1=nums[0];
 	    int p2=0;
 	   
-	   for(int i=1;i<nums.size();i++)
+	   for(int i=1;i<nums.size()-1;i++)
 	   {
 	       int take=nums[i];
            
@@ -23,18 +24,34 @@ public:
 	       p1=curr;
         }
         
-        return p1;
+        int ans1=p1;
         
-    }
-    
-    int rob(vector<int>& nums) 
-    {
-        if (nums.size() == 1) return nums[0];
+        p1=nums[1];
+        p2=0;
         
-        vector<int> arr1(nums.begin(), nums.end()-1);
-        vector<int> arr2(nums.begin()+1, nums.end());
+       for(int i=2;i<nums.size();i++)
+	   {
+	       int take=nums[i];
+           
+	       if(i > 1)
+           {
+               take+=p2;
+               
+           }
+           
+	       int pick=0+p1;
+	       
+	       int curr=max(take,pick);
+	       
+	       p2=p1;
+	       p1=curr;
+        }
         
         
-        return max(houserob(arr1), houserob(arr2));
+        int ans2=p1;
+        
+        
+        return max(ans1,ans2);
+        
     }
 };
