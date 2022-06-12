@@ -1,24 +1,37 @@
 class Solution {
 public:
-    int paths(vector<vector<int>>& obstacleGrid,int m,int n,vector<vector<int>>& dp)
+    int paths(vector<vector<int>>& obstacleGrid,int m,int n)
     {
-        if(m > 0 && n > 0 && obstacleGrid[m][n]==1) return 0;
+        vector<int> pre(n,0);
+        for(int i=0;i<m;i++)
+        {
+            vector<int> temp(n,0);
+            
+            for(int j=0;j<n;j++)
+            {
+                if( i > 0 && j > 0 && obstacleGrid[i][j]==1 ||  i >= 0 && j > 0 && obstacleGrid[i][j]==1 || i > 0 && j >= 0 && obstacleGrid[i][j]==1 )
+                {
+                     temp[j]=0;
+                     continue;
+                }
+                
+                if(i==0 && j==0)
+                {
+                    temp[j]=1;
+                    continue;
+                }
+            
+                int up=0,left=0;
+                
+                if(i > 0) up=pre[j];
+                if(j > 0) left=temp[j-1];
+                
+                temp[j]=up+left;
+            }
+            pre=temp;
+        }
         
-        if(m > 0 && n >= 0 && obstacleGrid[m][n]==1) return 0;
-        
-        if(m >= 0 && n > 0 && obstacleGrid[m][n]==1) return 0;
-        
-        if(m==0 && n==0) return 1;
-        
-        if(m < 0 || n < 0) return 0;
-        
-        if(dp[m][n]!=-1) return dp[m][n];
-        
-        int up=paths(obstacleGrid,m,n-1,dp);
-      
-        int left=paths(obstacleGrid,m-1,n,dp);
-        
-        return dp[m][n]=up+left;
+        return pre[n-1];
         
     }
     
@@ -33,8 +46,6 @@ public:
         
         if(m==1) return !obstacleGrid[m-1][n-1];
         
-        vector<vector<int>> dp(m,vector<int>(n,-1));
-        
-        return paths(obstacleGrid,m-1,n-1,dp);
+        return paths(obstacleGrid,m,n);
     }
 };
