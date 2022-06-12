@@ -1,31 +1,36 @@
 class Solution {
 public:
     
-    static bool mycmp(vector<int>& a, vector<int>& b)
-    {
-        return a[1] > b[1];
-    }
-    
     int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) 
     {
         int maxi=0;
         
-        sort(boxTypes.begin(),boxTypes.end(),mycmp);
-        
+        priority_queue<pair<int,int>> pq;
+    
         for(int i=0;i<boxTypes.size();i++)
         {
+            pq.push({boxTypes[i][1],boxTypes[i][0]});
+        }
+        
+        while(!pq.empty())
+        {
+            int unit=pq.top().first;
+            int box=pq.top().second;
+            pq.pop();
             
-            if(boxTypes[i][0] < truckSize)
+            if(box < truckSize)
             {
-                truckSize-=boxTypes[i][0];
-                maxi+=boxTypes[i][0] * boxTypes[i][1];
+                truckSize-=box;
+                maxi+=box * unit;
             }
             else
             {
-                maxi+= truckSize * boxTypes[i][1];
+                maxi+= truckSize * unit;
                 break;
             }
         }
+        
+        
         return maxi;
     }
 };
