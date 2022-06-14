@@ -1,36 +1,42 @@
 class Solution {
 public:
-    int minsum(vector<vector<int>>& matrix,vector<vector<int>>& dp,int i,int j,int n)
-    {
-        
-        
-        if( (j < 0) || (j > n-1) ) return 1e9;
-        
-        if( i==n-1 ) return matrix[i][j];
-        
-        if(dp[i][j]!=-1) return dp[i][j];
-        
-        int dl=matrix[i][j] + minsum(matrix,dp,i+1,j-1,n);
-        int d=matrix[i][j] + minsum(matrix,dp,i+1,j,n);
-        int dr=matrix[i][j] + minsum(matrix,dp,i+1,j+1,n);
-        
-        return dp[i][j]=min(d,min(dl,dr));
-    }
-    
-    int minFallingPathSum(vector<vector<int>>& matrix) 
+     int minFallingPathSum(vector<vector<int>>& matrix) 
     {
         int n=matrix.size();
+         
         int m = matrix[0].size();
         
-        vector<vector<int>> dp(n,vector<int>(n,-1));
+        vector<int> dp(matrix[0]);
         
-        int mi=INT_MAX;
+        vector<int>cur(m,0);
         
-        for(int i=0;i<matrix[0].size();i++)
+        for(int i=1;i<n;i++)
         {
-               mi=min(mi,minsum(matrix,dp,0,i,n));
-        }
+            
+            for(int j=0;j<m;j++)
+            {
+                int dr=1e9,dl=1e9;
+                
+                if(j-1 >= 0)  dl=matrix[i][j] + dp[j-1];
+                
+                if(j+1 < m)   dr=matrix[i][j] + dp[j+1]; 
+                
+                int d=matrix[i][j] + dp[j];
+                
+                cur[j]=min(d,min(dl,dr));
+                  
+                }
+                
+                dp=cur;
+            }
         
-        return mi;
+            int mini=dp[0];
+    
+            for(int x=1;x<m;x++)
+            {
+                mini=min(mini,dp[x]);
+            }
+    
+            return mini;
     }
 };
