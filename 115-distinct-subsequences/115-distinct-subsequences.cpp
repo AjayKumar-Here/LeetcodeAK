@@ -6,7 +6,7 @@ public:
         int n=s.size();
         int m=t.size();
         
-        vector<vector<int>> dp(n+1,vector(m+1,0));
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
         
         for(int i=0;i<=n;i++)
         {
