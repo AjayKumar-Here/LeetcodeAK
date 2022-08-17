@@ -1,27 +1,40 @@
 class Solution {
 public:
-    int FindMinDist(string s1,string s2,int n,int m,vector<vector<int>> &dp)
-    {
-        if(n < 0) return m+1;
-        if(m < 0) return n+1;
-        
-        if(dp[n][m]!=-1) return dp[n][m];
-        
-        if(s1[n]==s2[m])
-        {
-            return dp[n][m] = 0 + FindMinDist(s1,s2,n-1,m-1,dp);
-        }
-        
-        
-        return dp[n][m] = 1 + min(FindMinDist(s1,s2,n,m-1,dp),min(FindMinDist(s1,s2,n-1,m,dp),FindMinDist(s1,s2,n-1,m-1,dp)));
-    }
-    
     int minDistance(string word1, string word2) 
     {
         int n=word1.size();
         int m=word2.size();
-        vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
         
-        return FindMinDist(word1,word2,n-1,m-1,dp);
+        
+        for(int i=0;i<=n;i++)
+        {
+            dp[i][0]=i;
+        }
+        
+        for(int i=0;i<=m;i++)
+        {
+            dp[0][i]=i;
+        }
+        
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(word1[i-1]==word2[j-1])
+                {
+                    dp[i][j] = 0 + dp[i-1][j-1];
+                }
+                else
+                {
+                    dp[i][j] = 1 + min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));
+                }
+            }
+        }
+        
+        return dp[n][m];
+        
+        
+        
     }
 };
