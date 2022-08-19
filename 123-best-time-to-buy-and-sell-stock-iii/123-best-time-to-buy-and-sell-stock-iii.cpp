@@ -6,22 +6,6 @@ public:
         
         vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(2,vector<int>(3,0)));
         
-        for(int i=0;i<=n;i++)
-        {
-            for(int buy=0;buy<=1;buy++)
-            {
-                dp[i][buy][0]=0;
-            }
-        }
-        
-        for(int i=0;i<=1;i++)
-        {
-            for(int j=0;j<=2;j++)
-            {
-                dp[n][i][j]=0;
-            }
-        }
-        
          for(int ind = n-1; ind>=0; ind--)
          {
             for(int buy = 0; buy<=1; buy++)
