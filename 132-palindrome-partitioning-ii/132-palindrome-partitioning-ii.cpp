@@ -2,23 +2,12 @@ class Solution {
 public:
     int dp1[2000][2000];
     
-    bool palindrome(string &str,int s,int e)
+    bool palindrome(string &s,int i,int j)
     {
-        int i=s,j=e;
-        if(dp1[s][e]!=-1) dp1[s][e];
-        
-        while(s<=e)
-        {
-            if(str[s]!=str[e])
-            {
-                return dp1[s][e]=false;
-            }
-            
-            s++;
-            e--;
-        }
-        
-        return dp1[i][j]=true;
+        if(i >= j) return dp1[i][j] = true;
+        if(dp1[i][j] != -1) return dp1[i][j];
+        if(s[i] == s[j]) return dp1[i][j] = palindrome(s, i + 1, j - 1);
+        return dp1[i][j] = false;
     }
     
     int minCut(string s) 
