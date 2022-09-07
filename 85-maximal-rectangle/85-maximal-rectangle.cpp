@@ -30,7 +30,7 @@ public:
 			tp = s.top();
 			s.pop();
 		
-			curr=arr[tp] * (s.empty() ? i : (i-s.top()-1) ) ;
+			curr=arr[tp] * (s.empty() ? n : (n-s.top()-1) ) ;
 		
 			res=max(res,curr);
 		}
